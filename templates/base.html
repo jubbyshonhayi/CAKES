@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Student Management System</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 2rem; background: #f8fafc; color: #111827; }
+      .container { max-width: 960px; margin: 0 auto; background: white; padding: 1.5rem; border-radius: 8px; }
+      nav { margin-bottom: 1rem; display: flex; gap: 1rem; align-items: center; }
+      table { border-collapse: collapse; width: 100%; }
+      th, td { border-bottom: 1px solid #e5e7eb; padding: .6rem; text-align: left; }
+      a.button, button { background: #2563eb; color: white; border: 0; padding: .45rem .8rem; border-radius: 4px; text-decoration: none; }
+      .actions { display: flex; gap: .4rem; }
+      form.inline { display: inline; }
+      .meta { color: #6b7280; font-size: .9rem; }
+      input, select { padding: .45rem; width: 100%; margin-top: .2rem; margin-bottom: .8rem; }
+      .errorlist { color: #b91c1c; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <nav>
+        {% if user.is_authenticated and user.is_school_user %}
+          <a href="{% url 'student-list' %}">Students</a>
+          <a href="{% url 'student-create' %}">Add Student</a>
+          <span class="meta">School: {{ user.school.name }}</span>
+        {% endif %}
+        {% if user.is_authenticated %}
+          <form class="inline" method="post" action="{% url 'logout' %}">{% csrf_token %}<button type="submit">Logout</button></form>
+        {% endif %}
+      </nav>
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>

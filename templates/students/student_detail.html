@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ object.first_name }} {{ object.last_name }}</h1>
+<p><strong>Email:</strong> {{ object.email }}</p>
+<p><strong>Date of Birth:</strong> {{ object.date_of_birth }}</p>
+<p><strong>Enrollment Number:</strong> {{ object.enrollment_number }}</p>
+<p class="actions">
+  <a class="button" href="{% url 'student-update' object.pk %}">Edit</a>
+  <a class="button" href="{% url 'student-delete' object.pk %}">Delete</a>
+</p>
+{% endblock %}
